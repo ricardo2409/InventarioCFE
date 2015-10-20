@@ -149,7 +149,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
             }
         }
     }
-    
     @IBAction func switch2(sender: UISwitch) {
         if(switch2.on == false) {
             for objeto in arregloAparatos{
@@ -244,6 +243,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
                     guard let data = data where error == nil else { return }
                     thumbnailImageView.image = UIImage(data: data)
                     self.imageAparato = UIImage(data: data)!
+                    
                 }
             }
         }
@@ -263,6 +263,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
             fotoVC.latitude = "\(latitude)"
             fotoVC.longitude = "\(longitude)"
             self.navigationController?.pushViewController(fotoVC, animated: true)
+
+            
         }
         
     }

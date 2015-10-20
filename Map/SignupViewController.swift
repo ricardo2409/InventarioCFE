@@ -12,7 +12,6 @@ import Parse
 class SignupViewController: UIViewController {
 
     @IBOutlet weak var usernameField: UITextField!
-    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
@@ -26,7 +25,6 @@ class SignupViewController: UIViewController {
         self.actIndicador.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         view.addSubview(self.actIndicador)
         
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func signUpAction(sender: UIButton) {

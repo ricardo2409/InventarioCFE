@@ -40,9 +40,6 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var bancoLabel: UILabel!
     @IBOutlet weak var UTRLable: UILabel!
     @IBOutlet weak var GuardarInfoLabel: UIButton!
-    
-    
-    
     @IBOutlet weak var extraInfo: UITextField!
    
     @IBAction func switch1(sender: UISwitch) {
@@ -82,7 +79,9 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
         }
-        esconder()
+        
+        checarImagen()
+//        esconder()
         
         switch1.on = false
         switch2.on = false
@@ -138,7 +137,15 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         saveImage(info[UIImagePickerControllerOriginalImage] as! UIImage)
         self.dismissViewControllerAnimated(true, completion: nil)
         
-        mostrar()
+//        mostrar()
+    }
+    
+    func checarImagen(){
+        if (imageView.image == nil){
+            esconder()
+        }else{
+            mostrar()
+        }
     }
     
     @IBAction func tomarFoto(sender: UIButton) {
@@ -165,10 +172,12 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
 
-    func resetearSwitches(){
+    func resetearInformacion(){
         self.switch1.on = false
         self.switch2.on = false
         self.switch3.on = false
+        self.imageView.image = nil
+        self.extraInfo.text = nil
 //        self.switch4.on = false
 
     }
@@ -201,9 +210,8 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 alert.show()
             }else {
                 self.activityIndicator.stopAnimating()
-                self.resetearSwitches()
-                self.imageView.image = nil
-                self.extraInfo.text = nil
+                self.resetearInformacion()
+               
                 let alert = UIAlertView(title: "¡Datos guardados exitosamente!", message: "", delegate: self, cancelButtonTitle: "ok")
                 alert.show()
                 
