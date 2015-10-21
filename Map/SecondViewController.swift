@@ -80,8 +80,8 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             locationManager.startUpdatingLocation()
         }
         
-        checarImagen()
-//        esconder()
+//        checarImagen()
+        esconder()
         
         switch1.on = false
         switch2.on = false
@@ -96,6 +96,8 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             name: UIKeyboardWillShowNotification,
             object: nil)
     }
+    
+    
     func esconder(){
         switch1.hidden = true
         switch2.hidden = true
@@ -118,6 +120,14 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         UTRLable.hidden = false
     }
     
+    func checarImagen(){
+        if (imageView.image == nil){
+            esconder()
+        }else{
+            mostrar()
+        }
+    }
+    
     func keyboardWillShow(sender: NSNotification) {
         if let userInfo = sender.userInfo {
             if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
@@ -136,17 +146,11 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         saveImage(info[UIImagePickerControllerOriginalImage] as! UIImage)
         self.dismissViewControllerAnimated(true, completion: nil)
-        
-//        mostrar()
+        mostrar()
+
     }
     
-    func checarImagen(){
-        if (imageView.image == nil){
-            esconder()
-        }else{
-            mostrar()
-        }
-    }
+   
     
     @IBAction func tomarFoto(sender: UIButton) {
         let picker = UIImagePickerController()
@@ -217,6 +221,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 
             }
         })
+        esconder()
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
