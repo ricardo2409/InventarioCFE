@@ -81,7 +81,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
 //        checarImagen()
-        esconder()
+//        esconder()
         
         switch1.on = false
         switch2.on = false
@@ -95,6 +95,9 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             selector: "keyboardWillShow:",
             name: UIKeyboardWillShowNotification,
             object: nil)
+        
+        self.imageView.layer.borderWidth = 1
+        self.imageView.layer.borderColor = UIColor(red:222/255.0, green:225/255.0, blue:227/255.0, alpha: 1.0).CGColor
     }
     
     
@@ -146,7 +149,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         saveImage(info[UIImagePickerControllerOriginalImage] as! UIImage)
         self.dismissViewControllerAnimated(true, completion: nil)
-        mostrar()
+//        mostrar()
 
     }
     
@@ -213,7 +216,9 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 let alert = UIAlertView(title: "Error", message: "\(error)", delegate: self, cancelButtonTitle: "ok")
                 alert.show()
             }else {
+                
                 self.activityIndicator.stopAnimating()
+                
                 self.resetearInformacion()
                
                 let alert = UIAlertView(title: "¡Datos guardados exitosamente!", message: "", delegate: self, cancelButtonTitle: "ok")
@@ -221,7 +226,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 
             }
         })
-        esconder()
+        //esconder()
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
