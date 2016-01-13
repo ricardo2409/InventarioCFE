@@ -20,7 +20,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
 
     var imageFile: PFFile!
     var tipo = 0
-    
+    var material = ""
     var locationManager = CLLocationManager()
     //var usuario = PFUser.currentUser()
     
@@ -42,6 +42,13 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var GuardarInfoLabel: UIButton!
     @IBOutlet weak var extraInfo: UITextField!
    
+    @IBOutlet weak var switchConcreto: UISwitch!
+    @IBOutlet weak var switchMadera: UISwitch!
+    @IBOutlet weak var switchFierro: UISwitch!
+    
+    
+    
+    
     @IBAction func switch1(sender: UISwitch) {
         if switch1.on {
             switch2.on = false
@@ -71,6 +78,28 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
 //        }
 //    }
     
+    @IBAction func switchConcreto(sender: UISwitch) {
+        if switchConcreto.on {
+            switchMadera.on = false
+            switchFierro.on = false
+        }
+    }
+    
+    @IBAction func switchMadera(sender: UISwitch) {
+        if switchMadera.on {
+            switchConcreto.on = false
+            switchFierro.on = false
+        }
+    }
+    
+    @IBAction func switchFierro(sender: UISwitch) {
+        if switchFierro.on {
+            switchConcreto.on = false
+            switchMadera.on = false
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if (CLLocationManager.locationServicesEnabled()) {
@@ -87,6 +116,10 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         switch2.on = false
         switch3.on = false
         //switch4.on = false
+        
+        switchConcreto.on = false
+        switchMadera.on = false
+        switchFierro.on = false
         //imageView.image = nil
         self.activityIndicator.stopAnimating()
         //self.bienvenidaUsuario.text = usuario.username
@@ -183,9 +216,13 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.switch1.on = false
         self.switch2.on = false
         self.switch3.on = false
+        //self.switch4.on = false
         self.imageView.image = nil
         self.extraInfo.text = nil
-//        self.switch4.on = false
+        self.switchFierro.on = false
+        self.switchMadera.on = false
+        self.switchConcreto.on = false
+
 
     }
     
@@ -197,11 +234,18 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             self.tipo = 2
         }else if(switch3.on){
             self.tipo = 3
-        }else{
-            self.tipo = 0
         }
         
-        if( imageFile == nil || tipo == 0){
+        if(switchConcreto.on){
+            self.material = "Concreto"
+        }else if(switchMadera.on){
+            self.material = "Madera"
+        }else if(switchFierro.on){
+            self.material = "Fierro"
+        }
+        
+        
+        if( imageFile == nil || tipo == 0 || material == ""){
             let alert = UIAlertView(title: "No se pudo guardar", message: "Favor de llenar todos los campos", delegate: self, cancelButtonTitle: "ok")
             alert.show()
         }else{
@@ -212,6 +256,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             prueba["Type"] = self.tipo
             prueba["User"] = "admin"
             prueba["Informacion"] = self.extraInfo.text
+            prueba["Material"] = self.material
             
             self.activityIndicator.startAnimating()
             
