@@ -197,35 +197,42 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             self.tipo = 2
         }else if(switch3.on){
             self.tipo = 3
+        }else{
+            self.tipo = 0
         }
         
+        if( imageFile == nil || tipo == 0){
+            let alert = UIAlertView(title: "No se pudo guardar", message: "Favor de llenar todos los campos", delegate: self, cancelButtonTitle: "ok")
+            alert.show()
+        }else{
+            let prueba = PFObject(className: "Informacion")
+            let point = PFGeoPoint(latitude:self.latitude, longitude:self.longitude)
+            prueba["Location"] = point
+            prueba["Photo"] = self.imageFile
+            prueba["Type"] = self.tipo
+            prueba["User"] = "admin"
+            prueba["Informacion"] = self.extraInfo.text
+            
+            self.activityIndicator.startAnimating()
+            
+            prueba.saveInBackgroundWithBlock({ (succeed, error) -> Void in
+                if(error != nil)
+                {
+                    let alert = UIAlertView(title: "Error", message: "\(error)", delegate: self, cancelButtonTitle: "ok")
+                    alert.show()
+                }else {
+                    
+                    self.activityIndicator.stopAnimating()
+                    
+                    self.resetearInformacion()
+                    
+                    let alert = UIAlertView(title: "¡Datos guardados exitosamente!", message: "", delegate: self, cancelButtonTitle: "ok")
+                    alert.show()
+                    
+                }
+            })
+        }
         
-        let prueba = PFObject(className: "Informacion")
-        let point = PFGeoPoint(latitude:self.latitude, longitude:self.longitude)
-        prueba["Location"] = point
-        prueba["Photo"] = self.imageFile
-        prueba["Type"] = self.tipo
-        prueba["User"] = "admin"
-        prueba["Informacion"] = self.extraInfo.text
-        
-        self.activityIndicator.startAnimating()
-        
-        prueba.saveInBackgroundWithBlock({ (succeed, error) -> Void in
-            if(error != nil)
-            {
-                let alert = UIAlertView(title: "Error", message: "\(error)", delegate: self, cancelButtonTitle: "ok")
-                alert.show()
-            }else {
-                
-                self.activityIndicator.stopAnimating()
-                
-                self.resetearInformacion()
-               
-                let alert = UIAlertView(title: "¡Datos guardados exitosamente!", message: "", delegate: self, cancelButtonTitle: "ok")
-                alert.show()
-                
-            }
-        })
         //esconder()
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
