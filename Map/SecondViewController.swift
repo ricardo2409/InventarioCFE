@@ -164,6 +164,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
     }
     
+    
     func keyboardWillShow(sender: NSNotification) {
         if let userInfo = sender.userInfo {
             if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {

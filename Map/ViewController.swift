@@ -36,9 +36,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
     @IBOutlet weak var switch1: UISwitch!
     @IBOutlet weak var switch2: UISwitch!
     @IBOutlet weak var switch3: UISwitch!
-    
     @IBOutlet weak var map: MKMapView!
-
     @IBOutlet weak var labelTransformadores: UILabel!
     @IBOutlet weak var labelBancoDeCapacitores: UILabel!
     @IBOutlet weak var labelUTR: UILabel!
@@ -130,8 +128,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
     @IBAction func switch1(sender: UISwitch) {
         if(switch1.on == false) {
             for objeto in arregloAparatos{
-                
-                
                 if(objeto.type == 1)
                 {
                     self.map.removeAnnotation(objeto)
@@ -192,9 +188,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
             }
         }
     }
-    
-    
-    
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? AnnotationAparato {
             let identifier = "pin"
@@ -212,13 +205,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
                 view.animatesDrop = true
+            
                 
                 if (tipoAparato == 1){
-                    view.pinColor = .Purple
+//                    view.pinColor = .Purple
+                    if #available(iOS 9.0, *) {
+                        view.pinTintColor = UIColor.purpleColor()
+                    } else {
+                        // Fallback on earlier versions
+                    }
                 }else if (tipoAparato == 2){
-                    view.pinColor = .Green
+                    if #available(iOS 9.0, *) {
+                        view.pinTintColor = UIColor.greenColor()
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    
                 }else if (tipoAparato == 3){
-                    view.pinColor = .Red
+                    if #available(iOS 9.0, *) {
+                        view.pinTintColor = UIColor.redColor()
+                    } else {
+                        // Fallback on earlier versions
+                    }
                 }
 
                 view.leftCalloutAccessoryView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -270,6 +278,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
     }
     
     var setRegion: Bool = true
+    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations.last as CLLocation!
