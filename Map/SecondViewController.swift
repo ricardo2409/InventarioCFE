@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import CoreLocation
+import SCLAlertView
 
 class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
 
@@ -247,8 +248,10 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         
         if( imageFile == nil || tipo == 0 || material == ""){
-            let alert = UIAlertView(title: "No se pudo guardar", message: "Favor de llenar todos los campos", delegate: self, cancelButtonTitle: "ok")
-            alert.show()
+//            let alert = UIAlertView(title: "No se pudo guardar", message: "Favor de llenar todos los campos", delegate: self, cancelButtonTitle: "ok")
+//            alert.show()
+            SCLAlertView().showError("Error", subTitle: "Favor de llenar todos los campos") // Error
+
         }else{
             let prueba = PFObject(className: "Informacion")
             let point = PFGeoPoint(latitude:self.latitude, longitude:self.longitude)
@@ -264,16 +267,19 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             prueba.saveInBackgroundWithBlock({ (succeed, error) -> Void in
                 if(error != nil)
                 {
-                    let alert = UIAlertView(title: "Error", message: "\(error)", delegate: self, cancelButtonTitle: "ok")
-                    alert.show()
+//                    let alert = UIAlertView(title: "Error", message: "\(error)", delegate: self, cancelButtonTitle: "ok")
+//                    alert.show()
+                    SCLAlertView().showError("Error", subTitle: "\(error)")
                 }else {
                     
                     self.activityIndicator.stopAnimating()
                     
                     self.resetearInformacion()
                     
-                    let alert = UIAlertView(title: "¡Datos guardados exitosamente!", message: "", delegate: self, cancelButtonTitle: "ok")
-                    alert.show()
+//                    let alert = UIAlertView(title: "¡Datos guardados exitosamente!", message: "", delegate: self, cancelButtonTitle: "ok")
+//                    alert.show()
+                    SCLAlertView().showSuccess("¡Datos guardados exitosamente!", subTitle: "")
+
                     
                 }
             })

@@ -246,6 +246,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
             let annotation = view.annotation as! AnnotationAparato
             let thumbnailImageView = view.leftCalloutAccessoryView as! UIImageView
 
+            //Poner un activity monitor mientras carga la imagen
             getDataFromUrl(NSURL(string: annotation.url)!) { (data, response, error)  in
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
                     guard let data = data where error == nil else { return }
@@ -254,6 +255,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
                     
                 }
             }
+            //Stop animating activity monitor
         }
     }
     
