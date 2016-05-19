@@ -97,17 +97,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
             
             if(type == 1){
                 self.titulo = "Transformador"
-                self.contadorTransformador++
+                self.contadorTransformador += 1
             }else if(type == 2){
                 self.titulo = "Banco de Capacitores"
-                self.contadorBancoDeCapacitores++
+                self.contadorBancoDeCapacitores += 1
             } else if(type == 3){
                 self.titulo = "UTR"
-                self.contadorUTR++
+                self.contadorUTR += 1
             }
 //            else{
 //                self.titulo = "4"
-//            }
+//            }loca
             let imagen = objeto["Photo"] as! PFFile
             
             let latitude = location.latitude

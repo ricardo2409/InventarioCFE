@@ -125,7 +125,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         //self.bienvenidaUsuario.text = usuario.username
 
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "keyboardWillShow:",
+            selector: #selector(SecondViewController.keyboardWillShow(_:)),
             name: UIKeyboardWillShowNotification,
             object: nil)
         
