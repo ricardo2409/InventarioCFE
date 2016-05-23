@@ -248,8 +248,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         
         if( imageFile == nil || tipo == 0 || material == ""){
-//            let alert = UIAlertView(title: "No se pudo guardar", message: "Favor de llenar todos los campos", delegate: self, cancelButtonTitle: "ok")
-//            alert.show()
+            //Falta llenar todos los campos
             SCLAlertView().showError("Error", subTitle: "Favor de llenar todos los campos") // Error
 
         }else{
@@ -267,18 +266,15 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             prueba.saveInBackgroundWithBlock({ (succeed, error) -> Void in
                 if(error != nil)
                 {
-//                    let alert = UIAlertView(title: "Error", message: "\(error)", delegate: self, cancelButtonTitle: "ok")
-//                    alert.show()
+                    //Hay un error
                     SCLAlertView().showError("Error", subTitle: "\(error)")
                 }else {
                     
-                    self.activityIndicator.stopAnimating()
-                    
+                    //No hay error al salvar la info
                     self.resetearInformacion()
                     
-//                    let alert = UIAlertView(title: "¡Datos guardados exitosamente!", message: "", delegate: self, cancelButtonTitle: "ok")
-//                    alert.show()
-                    SCLAlertView().showSuccess("¡Datos guardados exitosamente!", subTitle: "")
+
+                    SCLAlertView().showSuccess("Éxito", subTitle: "¡Datos guardados exitosamente!")
 
                     
                 }

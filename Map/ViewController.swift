@@ -33,6 +33,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
     var contadorBancoDeCapacitores = 0
     var contadorUTR = 0
     var arregloAparatos = Array<AnnotationAparato>()
+    var activityIndicator = UIActivityIndicatorView()
     @IBOutlet weak var switch1: UISwitch!
     @IBOutlet weak var switch2: UISwitch!
     @IBOutlet weak var switch3: UISwitch!
@@ -247,15 +248,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UIApplication
             let thumbnailImageView = view.leftCalloutAccessoryView as! UIImageView
 
             //Poner un activity monitor mientras carga la imagen
+        
+            
             getDataFromUrl(NSURL(string: annotation.url)!) { (data, response, error)  in
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
                     guard let data = data where error == nil else { return }
                     thumbnailImageView.image = UIImage(data: data)
+                    //Stop animating
+                
                     self.imageAparato = UIImage(data: data)!
                     
                 }
             }
-            //Stop animating activity monitor
+            
         }
     }
     
